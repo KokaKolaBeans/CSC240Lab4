@@ -85,23 +85,43 @@ void UnsortedTypeArray::PutItem(ItemType item) //
         std::cout << "List is Full";
         return;
     }
-    else if (length > 0)
-    {
-        for (int k = length - 1; k >= 0; k--)
-        {
-            info[k + 1] = info[k];
-        }
-        info[0] = item;
-    }
-    else if (length == 0)
-    {
-        info[0] = item;
-    }
+    info[length] = item;
     length++;
+    end = &info[length]; // we want end to point to the first empty slot after the last element
 };
 
-void UnsortedTypeArray::DeleteItem(ItemType item) // would be nice if this returned the Data/NULL or T/F but that doesn't follow the UnsortedLinked ADT
+void UnsortedTypeArray::DeleteItem(ItemType item) // Delete all copies of item
 {
+    write = begin;
+    read = begin;
+
+    bool matchFound = false;
+
+    int matchValue = 0;
+    for (int k = 0; k < length; k++)
+    {
+        read = &info[k];
+
+        switch (info[k].ComparedTo(item))
+        {
+        case LESS:
+        case GREATER:
+            matchFound = false;
+            break;
+        case EQUAL:
+            matchFound = true;
+            break;
+        }
+        if (!matchFound)
+        {
+            write = &info[k];
+        }
+        if (!matchFound && write != &info[k])
+        {
+            *write = *read;
+        }
+    }
+
     currentPos = 0;
     ItemType MatchItemType;
 
