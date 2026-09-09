@@ -20,10 +20,10 @@ int main()
     // classList.ResetList();
     // classList.Print();
 
-    // classList.DeleteItem(ItemType(4));
-    // cout << "(delete all 4s) length: " << classList.GetLength() << endl;
-    // classList.ResetList();
-    // classList.Print();
+    classList.DeleteItem(ItemType(4));
+    cout << "(delete all 4s) length: " << classList.GetLength() << endl;
+    classList.ResetList();
+    classList.Print();
 
     // classList.ShiftRight();
     // cout << "(shift right) length: " << classList.GetLength() << endl;
@@ -31,3 +31,5 @@ int main()
     // classList.Print();
     return 0;
 }
+
+// g++ -I include src/ItemType.cpp src/UnsortedTypeArray.cpp Lab4Driver.cpp -o lab4 && ./lab4

@@ -55,7 +55,7 @@ private:
     int length;
     ItemType info[MAX_ITEMS];
     int currentPos;
-    ItemType *begin;
+    ItemType *start;
     ItemType *end;
     ItemType *read;
     ItemType *write;

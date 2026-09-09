@@ -7,7 +7,7 @@ UnsortedTypeArray::UnsortedTypeArray()
 {
     length = 0;
     currentPos = 0;
-    begin = info;
+    start = info;
     end = info;  // move end to the right each time we add an element
     read = info; // two-pointer deletion algorithm
     write = info;
@@ -23,7 +23,7 @@ void UnsortedTypeArray::MakeEmpty() // sets all values to 0
     }
     length = 0;
     currentPos = 0;
-    begin = info;
+    start = info;
     end = info;  // move end to the right each time we add an element
     read = info; // two-pointer deletion algorithm
     write = info;
@@ -92,65 +92,104 @@ void UnsortedTypeArray::PutItem(ItemType item) //
 
 void UnsortedTypeArray::DeleteItem(ItemType item) // Delete all copies of item
 {
-    write = begin;
-    read = begin;
+    ItemType *readHead = start;
+    ItemType *writeHead = start;
+
+    // ItemType *endPos = end;
 
     bool matchFound = false;
 
-    int matchValue = 0;
-    for (int k = 0; k < length; k++)
+    while (readHead != end)
     {
-        read = &info[k];
-
-        switch (info[k].ComparedTo(item))
+        while (readHead->GetValue() == item.GetValue())
         {
-        case LESS:
-        case GREATER:
-            matchFound = false;
-            break;
-        case EQUAL:
             matchFound = true;
-            break;
+            readHead++;
         }
-        if (!matchFound)
+
+        if (matchFound) // if a previous match was found, but the current value is not a match (see above while loop)
         {
-            write = &info[k];
+            write->SetValue(read->GetValue()); // overwrite;
+            write++;
+            read++;
+            matchFound == false;
         }
-        if (!matchFound && write != &info[k])
+        else
         {
-            *write = *read;
+            read++;
+            write++;
         }
     }
-
-    currentPos = 0;
-    ItemType MatchItemType;
-
-    bool found = false;
-
-    // int k = 0;
-    while (currentPos < length - 1)
-    {
-        switch (item.ComparedTo(info[currentPos]))
-        {
-        case LESS:
-        case GREATER:
-            break;
-        case EQUAL:
-            MatchItemType = info[currentPos];
-            found = true;
-            break;
-        }
-        currentPos++;
-    }
-    if (found)
-    {
-        for (int k = currentPos; k < length - 1; k++) // shift elements left
-        {
-            info[k] = info[k + 1];
-        }
-    }
-    return;
 }
+// void UnsortedTypeArray::DeleteItem(ItemType item) // Delete all copies of item
+// {
+//     write = start;
+//     read = start;
+
+//     bool matchFound = false;
+
+//     int matchValue = 0;
+
+//     for (int k = 0; k < length; k++)
+//     {
+//         read = &info[k];
+
+//         switch (info[k].ComparedTo(item))
+//         {
+//         case LESS:
+//         case GREATER:
+//             matchFound = false;
+//             break;
+//         case EQUAL:
+//             matchFound = true;
+//             break;
+//         }
+
+//         if (matchFound)
+//         {
+//             if (read == write)
+//             {
+//             }
+//         }
+//         if (!matchFound && write != &info[k])
+//         {
+//             *write = *read;
+//         }
+//         else if (!matchFound && write != &info[k])
+//         {
+//             write = &info[k];
+//         }
+//     }
+
+// currentPos = 0;
+// ItemType MatchItemType;
+
+// bool found = false;
+
+// // int k = 0;
+// while (currentPos < length - 1)
+// {
+//     switch (item.ComparedTo(info[currentPos]))
+//     {
+//     case LESS:
+//     case GREATER:
+//         break;
+//     case EQUAL:
+//         MatchItemType = info[currentPos];
+//         found = true;
+//         break;
+//     }
+//     currentPos++;
+// }
+// if (found)
+// {
+//     for (int k = currentPos; k < length - 1; k++) // shift elements left
+//     {
+//         info[k] = info[k + 1];
+//     }
+// }
+// return;
+// }
 
 void UnsortedTypeArray::ResetList() { currentPos = 0; }
 
