@@ -54,7 +54,11 @@ public:
 private:
     int length;
     ItemType info[MAX_ITEMS];
-    int currentPos;
+    ItemType *currentPos;
+    ItemType *begin;
+    ItemType *end;
+    ItemType *read;
+    ItemType *write;
 };
 
 // typedef int ItemType;

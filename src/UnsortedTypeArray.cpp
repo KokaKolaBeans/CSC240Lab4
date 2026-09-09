@@ -7,9 +7,13 @@ UnsortedTypeArray::UnsortedTypeArray()
 {
     length = 0;
     currentPos = 0;
+    begin = info;
+    end = info;  // move end to the right each time we add an element
+    read = info; // two-pointer deletion algorithm
+    write = info;
 }
 
-// UnsortedTypeArray::~UnsortedTypeArray(); // Apparently don't need this guy
+// UnsortedTypeArray::~UnsortedTypeArray();
 
 void UnsortedTypeArray::MakeEmpty() // sets all values to 0
 {
@@ -19,6 +23,10 @@ void UnsortedTypeArray::MakeEmpty() // sets all values to 0
     }
     length = 0;
     currentPos = 0;
+    begin = info;
+    end = info;  // move end to the right each time we add an element
+    read = info; // two-pointer deletion algorithm
+    write = info;
 }
 
 bool UnsortedTypeArray::IsFull() const // he might want this the other way around–check StudentType
