@@ -101,7 +101,9 @@ void UnsortedTypeArray::DeleteItem(ItemType item) // Delete all copies of item
 
     while (readHead != end)
     {
-        while (readHead->GetValue() == item.GetValue())
+        ItemType match = *readHead;
+        // while (readHead->GetValue() == item.GetValue())
+        while (match.ComparedTo(item) == EQUAL)
         {
             matchFound = true;
             readHead++;
