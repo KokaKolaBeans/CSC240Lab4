@@ -15,20 +15,22 @@ int main()
     classList.ResetList();
     classList.Print();
 
-    // classList.ShiftRight();
-    // cout << "(shifted right) length: " << classList.GetLength() << endl;
-    // classList.ResetList();
-    // classList.Print();
-
-    classList.DeleteItem(ItemType(4));
+    classList.ShiftRight();
+    cout << "(shifted right) length: " << classList.GetLength() << endl;
+    classList.ResetList();
+    classList.Print();
+    classList.ResetList();
+    // cout << "line 23" << endl;
+    classList.DeleteItem(ItemType(4)); // this is halting the program
+    // cout << "line 25" << endl;
     cout << "(delete all 4s) length: " << classList.GetLength() << endl;
     classList.ResetList();
     classList.Print();
 
-    // classList.ShiftRight();
-    // cout << "(shift right) length: " << classList.GetLength() << endl;
-    // classList.ResetList();
-    // classList.Print();
+    classList.ShiftRight();
+    cout << "(shift right) length: " << classList.GetLength() << endl;
+    classList.ResetList();
+    classList.Print();
     return 0;
 }
 

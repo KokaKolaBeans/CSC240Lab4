@@ -5,6 +5,7 @@
 const int MAX_ITEMS = 50;
 
 class UnsortedTypeArray
+
 {
 
 public:
@@ -51,16 +52,16 @@ public:
     // Pre: list, item, list1, list2 have been initialized
     // Post: list 1 and list 2 are filled with the appropriate values.
 
+    void ShiftRight();
+
 private:
     int length;
     ItemType info[MAX_ITEMS];
     int currentPos;
-    ItemType *start;
-    ItemType *end;
-    ItemType *read;
-    ItemType *write;
-};
+    // ItemType *begin;
+    // ItemType *end;
 
-// typedef int ItemType;
+    // typedef int ItemType;
+};
 
 #endif

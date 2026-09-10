@@ -7,10 +7,6 @@ UnsortedTypeArray::UnsortedTypeArray()
 {
     length = 0;
     currentPos = 0;
-    start = info;
-    end = info;  // move end to the right each time we add an element
-    read = info; // two-pointer deletion algorithm
-    write = info;
 }
 
 // UnsortedTypeArray::~UnsortedTypeArray();
@@ -23,10 +19,6 @@ void UnsortedTypeArray::MakeEmpty() // sets all values to 0
     }
     length = 0;
     currentPos = 0;
-    start = info;
-    end = info;  // move end to the right each time we add an element
-    read = info; // two-pointer deletion algorithm
-    write = info;
 }
 
 bool UnsortedTypeArray::IsFull() const // he might want this the other way around–check StudentType
@@ -78,122 +70,39 @@ ItemType UnsortedTypeArray::GetItem(ItemType &item, bool &found)
         return NULL;
     }
 }
+
 void UnsortedTypeArray::PutItem(ItemType item) //
 {
     if (length + 1 == 50)
     {
-        std::cout << "List is Full";
+        std::cout << "List is Full" << std::endl;
         return;
     }
     info[length] = item;
     length++;
-    end = &info[length]; // we want end to point to the first empty slot after the last element
 };
 
-void UnsortedTypeArray::DeleteItem(ItemType item) // Delete all copies of item
+void UnsortedTypeArray::DeleteItem(ItemType item)
 {
-    ItemType *readHead = start;
-    ItemType *writeHead = start;
+    int writeIndex = 0;
 
-    // ItemType *endPos = end;
+    int readIndex = 0;
 
-    bool matchFound = false;
-
-    while (readHead != end)
+    for (int readIndex = 0; readIndex < length; readIndex++)
     {
-        ItemType match = *readHead;
-        // while (readHead->GetValue() == item.GetValue())
-        while (match.ComparedTo(item) == EQUAL)
+        if (info[readIndex].ComparedTo(item) != EQUAL)
         {
-            matchFound = true;
-            readHead++;
-        }
-
-        if (matchFound) // if a previous match was found, but the current value is not a match (see above while loop)
-        {
-            write->SetValue(read->GetValue()); // overwrite;
-            write++;
-            read++;
-            matchFound == false;
-        }
-        else
-        {
-            read++;
-            write++;
+            info[writeIndex] = info[readIndex];
+            writeIndex++;
         }
     }
+    length = writeIndex;
 }
-// void UnsortedTypeArray::DeleteItem(ItemType item) // Delete all copies of item
-// {
-//     write = start;
-//     read = start;
 
-//     bool matchFound = false;
-
-//     int matchValue = 0;
-
-//     for (int k = 0; k < length; k++)
-//     {
-//         read = &info[k];
-
-//         switch (info[k].ComparedTo(item))
-//         {
-//         case LESS:
-//         case GREATER:
-//             matchFound = false;
-//             break;
-//         case EQUAL:
-//             matchFound = true;
-//             break;
-//         }
-
-//         if (matchFound)
-//         {
-//             if (read == write)
-//             {
-//             }
-//         }
-//         if (!matchFound && write != &info[k])
-//         {
-//             *write = *read;
-//         }
-//         else if (!matchFound && write != &info[k])
-//         {
-//             write = &info[k];
-//         }
-//     }
-
-// currentPos = 0;
-// ItemType MatchItemType;
-
-// bool found = false;
-
-// // int k = 0;
-// while (currentPos < length - 1)
-// {
-//     switch (item.ComparedTo(info[currentPos]))
-//     {
-//     case LESS:
-//     case GREATER:
-//         break;
-//     case EQUAL:
-//         MatchItemType = info[currentPos];
-//         found = true;
-//         break;
-//     }
-//     currentPos++;
-// }
-// if (found)
-// {
-//     for (int k = currentPos; k < length - 1; k++) // shift elements left
-//     {
-//         info[k] = info[k + 1];
-//     }
-// }
-// return;
-// }
-
-void UnsortedTypeArray::ResetList() { currentPos = 0; }
+void UnsortedTypeArray::ResetList()
+{
+    currentPos = 0;
+}
 
 ItemType UnsortedTypeArray::GetNextItem()
 {
@@ -249,4 +158,15 @@ void UnsortedTypeArray::SplitLists(UnsortedTypeArray list, ItemType item, Unsort
 ItemType UnsortedTypeArray::GetCurrentItem()
 {
     return info[currentPos];
+}
+
+void UnsortedTypeArray::ShiftRight()
+{
+    ItemType lastItem = info[length - 1];
+
+    for (int k = length; k >= 0; k--)
+    {
+        info[k] = info[k - 1];
+    }
+    info[0] = lastItem;
 }
