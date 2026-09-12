@@ -26,7 +26,7 @@ public:
     // Pre: Object and members are initialized
     // Post: Found item is returned if it exists; bool argument tells us if item was or wasn't found
     ItemType GetCurrentItem();
-    // Pre: Object and members are initialized
+    // Pre: Object and members are initialized; list is not empty
     // Post: Item at index currentPos is returned
     void PutItem(ItemType item);
     // Pre: Object and members are initialized; object exists in list
