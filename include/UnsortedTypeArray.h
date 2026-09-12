@@ -10,12 +10,12 @@ class UnsortedTypeArray
 
 public:
     UnsortedTypeArray();
-    // Pre: Default constructor – object doesn't exist
-    // Post: object is initialized with no elements; associated private data members are also initialized
-    // ~UnsortedTypeArray(); // Need to Make
+    // Pre: Object doesn't exist
+    // Post: Empty list and associated data members (length, currentPos) is initialized with no elements
+    // Function: Default constructor
     void MakeEmpty();
     // Pre: object exists
-    // Post: the backing array info is zero'd out; currentPos  and length = 0
+    // Post: the backing array info is zero'd out; currentPos and length = 0
     bool IsFull() const;
     // Pre: Object has been initialized
     // Post: If list is full (50 items), returns true; if 0 < n < 50, returns false
@@ -30,11 +30,11 @@ public:
     // Post: Item at index currentPos is returned
     void PutItem(ItemType item);
     // Pre: Object and members are initialized; object exists in list
-    // Post: Item passed into the function is added to the front; other all other n's moved to the right by one space
+    // Post: Item is added to the end of the list and length is incremented by one.
     void DeleteItem(ItemType item);
-    // Pre: Object and members are initialized; object exists in list
-    // Post: Item is removed; items at indices greater than the removed item are shifted left
-    void ResetList();
+    // Pre: Object and members are initialized; one or more objects matching target exist in list
+    // Post: All objects matching target are removed; non-target objects to the right of the n target objects
+    //      are shifted left n times.
     // Function: Gets the next element in list.
     // Pre:  List has been initialized and has not been changed since last call.
     //       Current position is defined.
@@ -50,9 +50,11 @@ public:
     // Post: Items at indices up to length are printed
     void SplitLists(UnsortedTypeArray list, ItemType item, UnsortedTypeArray &list1, UnsortedTypeArray &list2);
     // Pre: list, item, list1, list2 have been initialized
-    // Post: list 1 and list 2 are filled with the appropriate values.
+    // Post: list1 and list2 are filled with the appropriate values.
 
     void ShiftRight();
+
+    void ResetList();
 
 private:
     int length;

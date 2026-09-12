@@ -82,11 +82,21 @@ void UnsortedTypeArray::PutItem(ItemType item) //
     length++;
 };
 
+// =======================================
+// Design and Documentation Question 1
+// =======================================
+
+/* DeleteItem invariant – At the start of each iteration of the loop over info[0... readIndex-1]:
+
+1. The prefix info[0 ... writeIndex - 1] contains all non-target values encountered so far in their
+original relative order.
+2. writeIndex satisfies 0 <= writeIndex <= readIndex, where (readIndex - writeIndex) equals the number
+of target values encountered so far.
+*/
 void UnsortedTypeArray::DeleteItem(ItemType item)
 {
-    int writeIndex = 0;
 
-    int readIndex = 0;
+    int writeIndex = 0;
 
     for (int readIndex = 0; readIndex < length; readIndex++)
     {
@@ -114,9 +124,8 @@ ItemType UnsortedTypeArray::GetNextItem()
     // Post: Current position is updated to next position.
     //       item is a copy of element at current position.
 
-    currentPos++;
     return info[currentPos++];
-};
+}
 
 void UnsortedTypeArray::Print() // Prints horiziontally with commas and braces
 {
@@ -138,20 +147,18 @@ void UnsortedTypeArray::Print() // Prints horiziontally with commas and braces
 
 void UnsortedTypeArray::SplitLists(UnsortedTypeArray list, ItemType item, UnsortedTypeArray &list1, UnsortedTypeArray &list2)
 {
-    currentPos = 0;
-    while (currentPos < length) // n
+    for (int k = 0; k < list.length; k++)
     {
-        switch (item.ComparedTo(list.info[currentPos])) // n == n^2
+        switch (list.info[k].ComparedTo(item)) // n == n^2
         {
         case LESS:
         case EQUAL:
-            list2.PutItem(info[currentPos]);
+            list1.PutItem(list.info[k]);
             break;
         case GREATER:
-            list1.PutItem(info[currentPos]);
+            list2.PutItem(list.info[k]);
             break;
         }
-        currentPos++;
     }
 }
 
@@ -162,9 +169,12 @@ ItemType UnsortedTypeArray::GetCurrentItem()
 
 void UnsortedTypeArray::ShiftRight()
 {
+    if (length <= 1)
+        return;
+
     ItemType lastItem = info[length - 1];
 
-    for (int k = length; k >= 0; k--)
+    for (int k = length - 1; k > 0; k--)
     {
         info[k] = info[k - 1];
     }
