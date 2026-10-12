@@ -1,7 +1,28 @@
 Project Specifications:
 
-1.  Using Array-Based Unsorted Type (handling ints)
-2.  DeleteItem must remove ALL copies of items
+1.  State the invariant your DeleteItem loop maintains — what is true about the portion of the array you have already examined? Write this as a comment above the function.
+
+-> the prefix info[0...writeIndex] contains all non-target values encountered in the for-loop info[0...readIndex] so far in their original relative ordering
+-> readIndex - writeIndex indicates the number of target values seen so far
+-> writeIndex indicates the number of non-target values encountered by the readIndex so far
+-> 0 <= writeIndex <= readIndex
+
+-> ReadIndex - WriteIndex indicates the number of target values seen so far
+-> writeIndex indicates the number of non-target values encountered so far
+-> 0 <= writeIndex <= readIndex;
+-> the prefix info(0...writeIndex) contains all non-target values placed contiguously in the array in their original relative order
+
+2.  Walk me through what your index does at the moment you delete an element. Did you traverse the list once, or more than once? What is your running time given the way you actually wrote it?
+
+when an element is deleted (in this case overwritten), the writeIndex increments by one and the readIndex continues incrementing through the for loop up to length. I traversed the list once. The running time is O(n)
+
+3.  Run your code on a list where every item is a 4. Then on an empty list. Show both outputs and say whether you predicted them.
+    The driver calls ShiftRight on a 5-item list and then again on the 2-item list left after deletion. Show both outputs and explain how your function knew where the end was.
+
+4.  Delete a value that is not in the list. Confirm the list is unchanged, and point to the code that guarantees it.
+
+5.  Using Array-Based Unsorted Type (handling ints)
+6.  DeleteItem must remove ALL copies of items
 
     Update the specifications of the DeleteItem function of the array-based version of UnsortedType as follows:
 
@@ -60,7 +81,7 @@ Project Specifications:
     cout << car << "\n";
     }
 
-3.  Must implement ShiftRight. Every element moves one space right, and the item at the end wraps around to move to the front
+7.  Must implement ShiftRight. Every element moves one space right, and the item at the end wraps around to move to the front
 
     Create a function called ShiftRight that shifts the contents of the list one index to the right, bringing the last item (index = length - 1) to the front (index = 0).
 

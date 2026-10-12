@@ -167,16 +167,16 @@ ItemType UnsortedTypeArray::GetCurrentItem()
     return info[currentPos];
 }
 
-void UnsortedTypeArray::ShiftRight()
+void UnsortedTypeArray::ShiftRight() // shift all elements right, bringing the last item to the front
 {
     if (length <= 1)
         return;
 
-    ItemType lastItem = info[length - 1];
+    ItemType lastItem = info[length - 1]; // store last item (index = length-1)
 
-    for (int k = length - 1; k > 0; k--)
+    for (int k = length - 1; k > 0; k--) // shift everything right, leaving first position empty
     {
         info[k] = info[k - 1];
     }
-    info[0] = lastItem;
+    info[0] = lastItem; // overwrite the first item with the previous last item
 }
