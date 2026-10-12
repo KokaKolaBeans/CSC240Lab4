@@ -174,7 +174,7 @@ void UnsortedTypeArray::ShiftRight() // shift all elements right, bringing the l
 
     ItemType lastItem = info[length - 1]; // store last item (index = length-1)
 
-    for (int k = length - 1; k > 0; k--) // shift everything right, leaving first position empty
+    for (int k = length - 1; k > 0; k--) // shift everything, leaving first position empty
     {
         info[k] = info[k - 1];
     }
